@@ -25,13 +25,29 @@ function showGreeting() {
  const date = new Date();
  const hours = date.getHours();
 
-   if (hours >= 0 || hours < 6) {
-      greeting.textContent = 'Good night'
-   } else if (hours >= 6 || hours < 12) {
-      greeting.textContent = 'Good morning'
-   } else if (hours >= 12 || hours < 18) {
-      greeting.textContent = 'Good day'
-   } else (hours >= 18 || hours < 0) 
-      greeting.textContent = 'Good evening'
+   if (hours <= 0 || hours <= 5) {
+      greeting.textContent = 'Good night';
+   } else if (hours <= 6 || hours <= 11) {
+      greeting.textContent = 'Good morning';
+   } else if (hours <= 12 || hours <= 17) {
+      greeting.textContent = 'Good day';
+   } else {
+      greeting.textContent = 'Good evening';
+   }
 }
 showGreeting();
+
+//При перезагрузке страницы приложения имя пользователя сохраняется
+const nameValue = document.querySelector('.name');
+
+function setLocalStorage() {
+   localStorage.setItem('name', nameValue.value);
+ }
+ window.addEventListener('beforeunload', setLocalStorage)
+
+ function getLocalStorage() {
+   if(localStorage.getItem('name')) {
+      nameValue.value = localStorage.getItem('name');
+   }
+ }
+ window.addEventListener('load', getLocalStorage)
