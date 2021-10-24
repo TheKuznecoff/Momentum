@@ -51,3 +51,15 @@ function setLocalStorage() {
    }
  }
  window.addEventListener('load', getLocalStorage)
+
+
+ const body = document.getElementsByTagName('body');
+
+ document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/evening/16.jpg')";
+
+ function getRandomNum(max) {
+   return Math.floor(Math.random(20) * max);
+   
+ }
+ getRandomNum();
+console.log(getRandomNum(5));
