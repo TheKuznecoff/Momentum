@@ -4,26 +4,26 @@ const greeting = document.querySelector('.greeting');
 
 //Время
 function showTime() {
- const date = new Date();
- const currentTime = date.toLocaleTimeString();
- time.textContent = currentTime;
- setTimeout(showTime, showDate, showGreeting, 1000);
+   const date = new Date();
+   const currentTime = date.toLocaleTimeString();
+   time.textContent = currentTime;
+   setTimeout(showTime, showDate, getTimeOfDay, 1000);
 }
 showTime();
 
 //Дата
 function showDate() {
- const d = new Date();
- const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
- const currentDate = d.toLocaleDateString('ru-RU', 'en-US', 'en-Br', options);
- date.textContent = currentDate;
+   const d = new Date();
+   const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
+   const currentDate = d.toLocaleDateString('ru-RU', 'en-US', 'en-Br', options);
+   date.textContent = currentDate;
 }
 showDate();
 
 //Приветствие
-function showGreeting() {
- const date = new Date();
- const hours = date.getHours();
+function getTimeOfDay() {
+   const date = new Date();
+   const hours = date.getHours();
 
    if (hours <= 0 || hours <= 5) {
       greeting.textContent = 'Good night';
@@ -35,31 +35,44 @@ function showGreeting() {
       greeting.textContent = 'Good evening';
    }
 }
-showGreeting();
+getTimeOfDay();
 
 //При перезагрузке страницы приложения имя пользователя сохраняется
 const nameValue = document.querySelector('.name');
 
 function setLocalStorage() {
    localStorage.setItem('name', nameValue.value);
- }
- window.addEventListener('beforeunload', setLocalStorage)
+}
+window.addEventListener('beforeunload', setLocalStorage)
 
- function getLocalStorage() {
-   if(localStorage.getItem('name')) {
+function getLocalStorage() {
+   if (localStorage.getItem('name')) {
       nameValue.value = localStorage.getItem('name');
    }
- }
- window.addEventListener('load', getLocalStorage)
+}
+window.addEventListener('load', getLocalStorage)
 
 
- const body = document.getElementsByTagName('body');
 
- document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/evening/16.jpg')";
+const body = document.getElementsByTagName('body');
+document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/evening/18.jpg')";
 
- function getRandomNum(max) {
-   return Math.floor(Math.random(20) * max);
-   
- }
- getRandomNum();
-console.log(getRandomNum(5));
+
+function getRandomNum(min = 1, max = 21) {
+   min = Math.ceil(min);
+   max = Math.floor(max);
+   return Math.floor(Math.random() * (max - min)) + min;
+}
+getRandomNum();
+
+
+
+function setBg() {
+   const bgNum = getRandomNum().toString().padStart(2, 0);
+   const image = new Image();
+   image.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${getTimeOfDay()}/${bgNum}.jpg`;
+   image.onload = () => {
+      body.style.backgroundImage = `url(${image.src})`;
+   }
+}
+setBg()
