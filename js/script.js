@@ -26,16 +26,23 @@ function getTimeOfDay() {
    const hours = date.getHours();
 
    if (hours <= 0 || hours <= 5) {
-      greeting.textContent = 'Good night';
+      return ('night');
    } else if (hours <= 6 || hours <= 11) {
-      greeting.textContent = 'Good morning';
+      return ('morning');
    } else if (hours <= 12 || hours <= 17) {
-      greeting.textContent = 'Good day';
+      return ('day');
    } else {
-      greeting.textContent = 'Good evening';
+      return ('evening');
    }
 }
 getTimeOfDay();
+
+function showGreeting() {
+   const timeOfDay = getTimeOfDay();
+   const greetingText = `Good ${timeOfDay}`;
+   greeting.textContent = greetingText;
+}
+showGreeting();
 
 //При перезагрузке страницы приложения имя пользователя сохраняется
 const nameValue = document.querySelector('.name');
@@ -53,10 +60,9 @@ function getLocalStorage() {
 window.addEventListener('load', getLocalStorage)
 
 
-
-const body = document.getElementsByTagName('body');
-document.body.style.backgroundImage = "url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/evening/18.jpg')";
-
+//Смена фонового изображения
+const body = document.querySelector('body');
+body.style.backgroundImage = "url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/evening/18.jpg')";
 
 function getRandomNum(min = 1, max = 21) {
    min = Math.ceil(min);
@@ -65,14 +71,13 @@ function getRandomNum(min = 1, max = 21) {
 }
 getRandomNum();
 
-
-
 function setBg() {
    const bgNum = getRandomNum().toString().padStart(2, 0);
    const image = new Image();
    image.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${getTimeOfDay()}/${bgNum}.jpg`;
    image.onload = () => {
       body.style.backgroundImage = `url(${image.src})`;
+      
    }
 }
-setBg()
+setBg();
