@@ -12,13 +12,28 @@ function showTime() {
 showTime();
 
 //Дата
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function  showDate() {
+   const today = new Date(),
+       dayOfWeek = days[today.getDay()],
+       dayOfMonth = today.getDate(),
+       month = months[today.getMonth()];
+
+   date.textContent = `${dayOfWeek}, ${dayOfMonth}, ${month}`;
+}
+showDate();
+
+/* Дата в цифрах
 function showDate() {
-   const d = new Date();
+   let d = new Date();
    const options = { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: 'UTC' };
    const currentDate = d.toLocaleDateString('ru-RU', 'en-US', 'en-Br', options);
    date.textContent = currentDate;
 }
 showDate();
+*/
 
 //Приветствие
 function getTimeOfDay() {
@@ -30,7 +45,7 @@ function getTimeOfDay() {
    } else if (hours <= 6 || hours <= 11) {
       return ('morning');
    } else if (hours <= 12 || hours <= 17) {
-      return ('day');
+      return ('afternoon');
    } else {
       return ('evening');
    }
@@ -73,11 +88,36 @@ getRandomNum();
 
 function setBg() {
    const bgNum = getRandomNum().toString().padStart(2, 0);
-   const image = new Image();
-   image.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${getTimeOfDay()}/${bgNum}.jpg`;
-   image.onload = () => {
-      body.style.backgroundImage = `url(${image.src})`;
-      
-   }
+   const img = new Image();
+   img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${getTimeOfDay()}/${bgNum}.jpg`;
+   img.onload = () => {
+      body.style.backgroundImage = `url(${img.src})`;
+   };
 }
 setBg();
+
+
+//Изображения можно перелистывать кликами по стрелкам, расположенным по бокам экрана
+const next = document.querySelector('.slide-next');
+const prev = document.querySelector('.slide-prev');
+let imgSlide = getRandomNum();
+next.addEventListener('click', getSliderNext);
+prev.addEventListener('click', getSliderPrev);
+
+function getSliderNext() {
+   if (imgSlide === 20) {
+      imgSlide = 0;
+   } else {
+      imgSlide += 1;
+   }
+   setBg();
+}
+
+function getSliderPrev() {
+   if (imgSlide === 20) {
+      imgSlide = 0;
+   } else {
+      imgSlide += 1;
+   }
+   setBg();
+}
