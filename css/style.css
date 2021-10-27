@@ -163,6 +163,15 @@ body {
   opacity: .6;
 }
 
+.city::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+.city::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+.city:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+.city:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+.city:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+.city:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+.city:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+.city:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+
 .main {
   position: relative;
   display: flex;
