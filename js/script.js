@@ -13,13 +13,13 @@ showTime();
 
 //Дата
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function  showDate() {
+function showDate() {
    const today = new Date(),
-       dayOfWeek = days[today.getDay()],
-       dayOfMonth = today.getDate(),
-       month = months[today.getMonth()];
+      dayOfWeek = days[today.getDay()],
+      dayOfMonth = today.getDate(),
+      month = months[today.getMonth()];
 
    date.textContent = `${dayOfWeek}, ${dayOfMonth}, ${month}`;
 }
@@ -133,19 +133,38 @@ async function getWeather() {
    const url = `https://api.openweathermap.org/data/2.5/weather?q=Волгоград&lang=ru&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;
    const res = await fetch(url);
    const data = await res.json();
- 
+
    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
    temperature.textContent = `${Math.round(data.main.temp)}°C`;
    weatherDescription.textContent = data.weather[0].description;
- }
- 
+}
 
- function setCity(event) {
+
+function setCity(event) {
    if (event.code === 'Enter') {
-     getWeather();
-     city.blur();
+      getWeather();
+      city.blur();
    }
- }
+}
 
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
+
+
+//Виджет "цитата дня"
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const quoteBtn = document.querySelector('.change-quote');
+
+
+async function getQuotes() {
+   const quotes = 'js/data.json';
+   const res = await fetch(quotes);
+   const data = await res.json();
+   const index = getRandomNum();
+   quote.textContent = data[index].text;
+   author.textContent = data[index].author;
+}
+quoteBtn.addEventListener('click', () => getQuotes);
+getQuotes();
+
